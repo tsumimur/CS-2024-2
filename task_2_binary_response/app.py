@@ -1,5 +1,6 @@
 from flask import Flask, send_file
 from pydantic import BaseModel, ValidationError, field_validator
+import subprocess
 
 app = Flask(__name__)
 
@@ -23,7 +24,7 @@ def l_system_file(grammatic: str):
     return send_file(path_or_file="file/quadratic Koch island - 2.png")
 
 
-# /l_system/it=3,angle=90,axiom="F-F-F-F",prod="{'F': 'F-F+F+F'}
+# /l_system/it=3,angle=90,axiom="F-F-F-F",prod="{'F': 'F-F+F+F'}"
 @app.route("/l_system/<grammatic>")
 def l_system(grammatic: str):
     try:
@@ -38,3 +39,6 @@ def l_system(grammatic: str):
             result+= f"<li>{error}</li>"
         result += "</ul>"
         return result
+
+if __name__ == "__main__":
+    app.run()
